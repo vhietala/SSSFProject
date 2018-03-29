@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/test`).then(() => {
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`).then(() => {
   console.log('Connected successfully.');
   app.use(express.static('public'));
   app.listen(3000);

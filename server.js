@@ -50,11 +50,34 @@ const Evnt = mongoose.model('Evnt', eventSchema);
 app.use(express.static('public'));
 
 /**
- * @api {get} /events Get all events
+ * @api {get} /event Request all events from database
+ * @apiName GetEvent
+ *  @apiGroup Event
  *
+ * @apiSuccess {JSON} { _id: String, title: String, category: String, date: Date, __v: Number }
  */
-app.get('/events', (req, res) => {
+app.get('/event', (req, res) => {
   Evnt.find().then(data => {
+    console.log(data);
+    res.send(data);
+  }, err => {
+    res.send(err.error.message);
+  });
+});
+
+/**
+ * @api {get} /event/:param Return events based on search paramater
+ * @apiName GetEvent
+ *  @apiGroup Event
+ *
+ * @apiParam {String} search parameter
+ *
+ * @apiSuccess {JSON} { _id: String, title: String, category: String, date: Date, __v: Number }
+ */
+app.get('/event/:param', (req, res) => {
+  const parameter = req.params.param;
+  console.log(parameter);
+  Evnt.findOne({'title' : parameter}).then(data => {
     console.log(data);
     res.send(data);
   }, err => {
@@ -65,7 +88,9 @@ app.get('/events', (req, res) => {
 /**
  * @api {post} /event post new event
  *
- * @apiParam {formData}
+ * @apiParam {formData} {date: Date, category: String, title: String,}
+ *
+ * @apiSuccess {JSON} { _id: String, title: String, category: String, date: Date, __v: Number }
  */
 app.post('/event', bodyParser.urlencoded({extended: true}), (req, res) => {
   // console.log(req.body);

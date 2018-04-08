@@ -6,12 +6,12 @@ const table = (json => {
       <th>Date</th>
       <th>Category</th>
       </tr>`;
-  json.forEach(evnt => {
-    console.log(evnt);
+  json.forEach(event => {
+    console.log(event);
     html += `<tr>
-            <td>${evnt.title}</td>
-            <td>${evnt.date}</td>
-            <td>${evnt.category}</td>
+            <td>${event.title}</td>
+            <td>${event.date}</td>
+            <td>${event.category}</td>
            </tr>`;
   });
   html += '</table>';

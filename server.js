@@ -51,10 +51,11 @@ app.use(express.static('public'));
 
 /**
  * @api {get} /event Request all events from database
- * @apiName GetEvent
- *  @apiGroup Event
+ * @apiName GetEvents
+ * @apiGroup Event
+ * @apiDescription This one is used to get all events from the database.
+ *  it returns a JSON containing the data.
  *
- * @apiSuccess {JSON} { _id: String, title: String, category: String, date: Date, __v: Number }
  */
 app.get('/event', (req, res) => {
   Evnt.find().then(data => {
@@ -66,18 +67,17 @@ app.get('/event', (req, res) => {
 });
 
 /**
- * @api {get} /event/:param Return events based on search paramater
- * @apiName GetEvent
+ *  @api {get} /event/:param Return events based on search paramater
+ *  @apiName GetEvent
  *  @apiGroup Event
+ *  @apiDescription This one can be used to search for events based on the title
+ *  it returns one item as a JSON.
  *
- * @apiParam {String} search parameter
- *
- * @apiSuccess {JSON} { _id: String, title: String, category: String, date: Date, __v: Number }
  */
 app.get('/event/:param', (req, res) => {
   const parameter = req.params.param;
   console.log(parameter);
-  Evnt.findOne({'title' : parameter}).then(data => {
+  Evnt.findOne({'title': parameter}).then(data => {
     console.log(data);
     res.send(data);
   }, err => {
@@ -87,10 +87,11 @@ app.get('/event/:param', (req, res) => {
 
 /**
  * @api {post} /event post new event
+ * @apiName PostEvent
+ * @apiGroup Event
+ * @apiDescription This is used to post a new event to the database
+ * it redirects to main page if successful, if not it sends an error message
  *
- * @apiParam {formData} {date: Date, category: String, title: String,}
- *
- * @apiSuccess {JSON} { _id: String, title: String, category: String, date: Date, __v: Number }
  */
 app.post('/event', bodyParser.urlencoded({extended: true}), (req, res) => {
   // console.log(req.body);
@@ -98,9 +99,9 @@ app.post('/event', bodyParser.urlencoded({extended: true}), (req, res) => {
     title: req.body.title,
     category: req.body.category,
     date: req.body.date,
-  }).then(c =>{
+  }).then(c => {
     res.redirect('/');
-  }, err =>{
+  }, err => {
     console.log(err.error.message);
   });
 });

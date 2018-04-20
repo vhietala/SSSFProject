@@ -49,22 +49,7 @@ const Evnt = mongoose.model('Evnt', eventSchema);
 
 app.use(express.static('public'));
 
-/**
- * @api {get} /event Request all events from database
- * @apiName GetEvents
- * @apiGroup Event
- * @apiDescription This one is used to get all events from the database.
- *  it returns a JSON containing the data.
- *
- */
-app.get('/event', (req, res) => {
-  Evnt.find().then(data => {
-    console.log(data);
-    res.send(data);
-  }, err => {
-    res.send(err.error.message);
-  });
-});
+
 
 
 

@@ -2,7 +2,24 @@
 
 const express = require('express');
 const router = express.Router();
+const event = require('../models/event');
 
+/**
+ * @api {get} /event Request all events from database
+ * @apiName GetEvents
+ * @apiGroup Event
+ * @apiDescription This one is used to get all events from the database.
+ *  it returns a JSON containing the data.
+ *
+ */
+app.get('/event', (req, res) => {
+  Evnt.find().then(data => {
+    console.log(data);
+    res.send(data);
+  }, err => {
+    res.send(err.error.message);
+  });
+});
 
 /**
  *  @api {get} /event/:param Return events based on search paramater

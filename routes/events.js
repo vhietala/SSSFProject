@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const event = require('../models/event');
+const event = require('../models/teamEvent');
 
 /**
  * @api {get} /events Request all events from database
@@ -13,7 +13,7 @@ const event = require('../models/event');
  *
  */
 app.get('/', (req, res) => {
-  Evnt.find().then(data => {
+  event.find().then(data => {
     console.log(data);
     res.send(data);
   }, err => {
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 router.get('/:param', (req, res) => {
   const parameter = req.params.param;
   console.log(parameter);
-  Evnt.findOne({'title': parameter}).then(data => {
+  event.findOne({'title': parameter}).then(data => {
     console.log(data);
     res.send(data);
   }, err => {

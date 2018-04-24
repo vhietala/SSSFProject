@@ -12,7 +12,7 @@ const TeamEvent = require('../models/teamEvent');
  *  it returns a JSON containing the data.
  *
  */
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   TeamEvent.find().then(data => {
     console.log(data);
     res.send(data);
@@ -59,12 +59,10 @@ router.get('/:param', (req, res) => {
 
 
 /**
- *  @api {put} /events/:param Return events based on search paramater
+ *  @api {put} /events/:param Update events based on parameter
  *  @apiName PutEvent
  *  @apiGroup Event
- *  @apiDescription This one can be used to search for events based on the title
- *  it returns one item as a JSON.
- *
+ *  @apiDescription This is used to update the event defined in parameter
  */
 router.put('/:param', (req, res) => {
     const parameter = req.params.param;

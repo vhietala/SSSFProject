@@ -23,10 +23,12 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser);
 app.use('/', indexRouter);
+app.use(bodyParser.json);
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
+
+app.listen(process.env.port || 3000);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -4,11 +4,18 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const dotenv = require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const eventsRouter = require('./routes/events');
 const bodyParser = require('body-parser');
+
+const https = require('https');
+const http = require('http');
+
 
 const app = express();
 
@@ -28,7 +35,25 @@ app.use(bodyParser.json);
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
 
-app.listen(process.env.port || 3000);
+mongoose.connect(
+    `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`).
+then(() => {
+    console.log('Connected successfully.');
+    http.createServer((req, res) => {
+        res.writeHead(301, {
+            'Location': `https://${process.env.APP_HOST}:${process.env.APP_PORT}` +
+            req.url,
+        });
+        res.end();
+    }).listen(8080);
+    const options = {
+        key: sslkey,
+        cert: sslcert,
+    };
+    https.createServer(options, app).listen(process.env.APP_PORT);
+}, err => {
+    console.log('Connection to db failed: ' + err);
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

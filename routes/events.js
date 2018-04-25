@@ -65,11 +65,13 @@ router.get('/:param', (req, res) => {
  *  @apiDescription This is used to update the event defined in parameter
  */
 router.put('/:param', (req, res) => {
-    const parameter = req.params.param;
     console.log(parameter);
-    TeamEvent.findOne({'title': parameter}).then(data => {
-        console.log(data);
-        res.send(data);
+    TeamEvent.findOneAndUpdate({'_id': req.params.param}).then(() => {
+        console.log("original: "+data);
+        TeamEvent.findOne({_id: req.params.param}).then(data=>{
+            console.log("updated: "+data);
+            res.send(data);
+        });
     }, err => {
         res.send(err.error.message);
     });

@@ -32,7 +32,8 @@ router.get('/', (req, res) => {
  */
 
 router.post('/',(req,res)=>{
-    TeamEvent.create(req.body).then(resp=>{
+    console.log(JSON.stringify(req.body));
+    createNewEvent(req.body).then(resp=>{
         res(resp);
     });
 });
@@ -95,5 +96,9 @@ router.get('/:param', (req, res) => {
         res.send(err.error.messsage);
     });
 });
+
+const createNewEvent=(tEvent)=>{
+  return TeamEvent.create(tEvent);
+};
 
 module.exports = router;

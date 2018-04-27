@@ -25,20 +25,18 @@ const app = express();
 
 const configDB = require('./config/database.js');
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+  secret: '$process.env.SECRET',
+  resave: false,
+  saveUninitialized: false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -57,48 +55,29 @@ mongoose.connect(configDB.url); // connect to our database
 
 app.listen(port);
 
-
-/*mongoose.connect(
-    `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`).then(() => {
-    console.log('Connected successfully.');
-    http.createServer((req, res) => {
-        res.writeHead(301, {
-            'Location': `https://${process.env.APP_HOST}:$port` +
-            req.url,
-        });
-        res.end();
-    }).listen(8080);
-    const options = {
-        key: sslkey,
-        cert: sslcert,
-    };
-    https.createServer(options, app).listen(process.env.APP_PORT);
-}, err => {
-    console.log('Connection to db failed: ' + err);
-});*/
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    next(createError(404));
+  next(createError(404));
 });
 
 // error handler
+// good candidate for .env
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err,
     });
+  });
 }
 
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {},
+  });
 });
 
 module.exports = app;

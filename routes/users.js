@@ -5,19 +5,22 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 
 /**
- * @api {get} /users Request all events from database
+ * @api {get} /users Request current user info
  * @apiName GetUsers
  * @apiGroup Users
  * @apiDescription This is used to get the current user info from the database, response is a JSON
  */
 router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
+    User.findOne({'username' : req.user.username}.then(data=>{
+        res.send(JSON.stringify(data));
+    }));
 });
+
 /**
- * @api {get} /users Request all events from database
+ * @api {get} /users/:param Request a user info based on id
  * @apiName GetUsers
  * @apiGroup Users
- * @apiDescription This is used to get the current user info from the database
+ * @apiDescription This is used to get the one user info from the database
  */
 router.get('/:id', (req, res, next) => {
     res.send('users GET');
@@ -35,7 +38,7 @@ router.put('/id', (req, res, next) => {
 });
 
 /**
- * @api {put} /users Request all events from database
+ * @api {put} /users update current user
  * @apiName PutUsers
  * @apiGroup Users
  * @apiDescription Updating current user

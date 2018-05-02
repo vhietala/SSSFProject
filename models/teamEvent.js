@@ -7,15 +7,24 @@ const commentSchema = new Schema({
         comment: String
     }
 );
+
+const GeoSchema = new Schema({
+    type: {
+        type: String,
+        default: "Point"
+    },
+    coordinates: {
+        type: [Number],
+        index: "2dsphere"
+    }
+});
+
 const eventSchema = new Schema({
     time: {
         type: Date,
         required: true,
     },
-    location: {
-        type: String,
-        required: true,
-    },
+    location: GeoSchema,
     category: {
         type: String,
     },

@@ -1,31 +1,18 @@
 .formContainer
-    form(id="eventCreate")
-        tag(target="title") Title:
-        br
-        input(type="text" name="title")
-        br
-        br
-        tag(target="category") Type:
-        br
-        input(type="text" name="category" id="category")
-        br
-        br
-        tag(target="location") Where:
-        br
-        input(type="text" name="location")
-        br
-        br
-        tag(target="date") When:
-        br
-        input(type="date" name="date")
-        br
-        br
-        tag(target="info")
-        textarea(id="info" name="info")
-        tag(target="hour") H:
-        input(type="number" name="hour" maxlength="2" min="0" max="23")
-        tag(target="minutes") Min:
-        input(type="number" name="minutes" maxlength="2" min="0" max="59")
-        br
-        br
-        input(type="submit")
+    h1 Add new event
+    form(role='form' action="/events" method="post" ,style='max-width: 300px' )
+        .form-group
+            input.form-control(type="text" name="title" placeholder='Title')
+        .form-group
+            input.form-control(type="text" name="category" id="category" placeholder='category')
+        .form-group
+            input.form-control(type="text" name="location" placeholder='Location')
+        .form-group
+            textarea.form-control(id="info" name="info" placeholder='Info')
+        .form-group
+            input.form-control(type="date" name="date")
+        .form-group
+            input.form-control(type="number" name="hour" maxlength="2" min="0" max="23" placeholder="16")
+        .form-group
+            input.form-control(type="number" name="minutes" maxlength="2" min="0" max="59" placeholder="00")
+        button.btn.btn-default(type="submit") Submit

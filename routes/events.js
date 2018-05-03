@@ -32,13 +32,14 @@ router.get('/', (req, res) => {
  */
 
 router.post('/', (req, res) => {
-    console.log("this" + (JSON.stringify(req.body)));
+    console.log('this' + (JSON.stringify(req.body)));
     try {
         createNewEvent(req.body).then(resp => {
-            res(resp);
+            res.send(resp);
         });
     } catch (e) {
         console.log(e);
+        res.send('error')
     }
 });
 
@@ -100,6 +101,7 @@ router.get('/:param', (req, res) => {
 });
 
 const createNewEvent = tEvent => {
+    console.log('here: '+ JSON.stringify(tEvent));
     return TeamEvent.create(tEvent);
 };
 

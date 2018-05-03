@@ -23,20 +23,23 @@ fetch('/events').then(res => {
 //     });
 // });
 
-document.querySelector('#eventCreate').addEventListener('submit', evt => {
-    console.log('submit pressed');
-    evt.preventDefault();
-    const data = new FormData();
-    data.append('title', evt.target.title);
-    data.append('category', evt.target.category);
-    console.log(JSON.stringify(data));
-    const url = '/events';
-    fetch(url,{
-        method: 'post',
-        body: data,
-    }).then(res => {
-        return resp.json();
-    }).then(json=>{
-        console.log(json);
-    })
-});
+// document.querySelector('#eventCreate').addEventListener('submit', evt => {
+//     console.log('submit pressed');
+//     evt.preventDefault();
+//     const data = new FormData();
+//     data.append('title', evt.target.title.value);
+//     data.append('category', evt.target.category.value);
+//     data.append('date', evt.target.date.value);
+//     data.append('hour', evt.target.hour.value);
+//     data.append('minutes', evt.target.minutes.value);
+//     console.log('this '+JSON.stringify(data));
+//     const url = '/events';
+//     fetch(url,{
+//         method: 'post',
+//         body: data,
+//     }).then(res => {
+//         return resp.json();
+//     }).then(json=>{
+//         console.log(json);
+//     })
+// });

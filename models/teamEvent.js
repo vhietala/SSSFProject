@@ -8,16 +8,16 @@ const commentSchema = new Schema({
     }
 );
 
-const GeoSchema = new Schema({
-    type: {
-        type: String,
-        default: "Point"
-    },
-    coordinates: {
-        type: [Number],
-        index: "2dsphere"
-    }
-});
+// const GeoSchema = new Schema({
+//     type: {
+//         type: String,
+//         default: "Point"
+//     },
+//     coordinates: {
+//         type: [Number],
+//         index: "2dsphere"
+//     }
+// });
 
 
 const eventSchema = new Schema({
@@ -25,12 +25,13 @@ const eventSchema = new Schema({
         type: Date,
         //required: true,
     },
-    //hour: Number,
-    //minutes: Number,
-    //location: GeoSchema,
-    //category: {
-       // type: String,
-    //},
+    hour: Number,
+    minutes: Number,
+    location: String,
+    category: {
+        type: String,
+        required: true,
+    },
     title: {
         type: String,
         required: true,

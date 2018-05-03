@@ -18,12 +18,17 @@ const GeoSchema = new Schema({
         index: "2dsphere"
     }
 });
+const timeSchema = new Schema({
+    hour: Number,
+    minutes: Number
+});
 
 const eventSchema = new Schema({
-    time: {
+    date: {
         type: Date,
         required: true,
     },
+    time: timeSchema,
     location: GeoSchema,
     category: {
         type: String,

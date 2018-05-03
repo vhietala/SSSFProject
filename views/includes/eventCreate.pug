@@ -1,5 +1,5 @@
 .formContainer
-    form
+    form(id="eventCreate")
         tag(target="title") Title:
         br
         input(type="text" name="title")
@@ -7,7 +7,7 @@
         br
         tag(target="category") Type:
         br
-        input(type="text" name="category")
+        input(type="text" name="category" id="category")
         br
         br
         tag(target="location") Where:
@@ -15,8 +15,17 @@
         input(type="text" name="location")
         br
         br
-        tag(target="time") When:
+        tag(target="date") When:
         br
-        input(type="date" name="time")
+        input(type="date" name="date")
+        br
+        br
+        tag(target="info")
+        textarea(id="info" name="info")
+        tag(target="hour") H:
+        input(type="number" name="hour" maxlength="2" min="0" max="23")
+        tag(target="minutes") Min:
+        input(type="number" name="minutes" maxlength="2" min="0" max="59")
+        br
         br
         input(type="submit")

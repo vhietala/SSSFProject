@@ -13,12 +13,12 @@ const TeamEvent = require('../models/teamEvent');
  *
  */
 router.get('/', (req, res) => {
-  TeamEvent.find().then(data => {
-    console.log(data);
-    res.send(data);
-  }, err => {
-    res.send(err.error.message);
-  });
+    TeamEvent.find().then(data => {
+        console.log(data);
+        res.send(data);
+    }, err => {
+        res.send(err.error.message);
+    });
 });
 
 
@@ -31,11 +31,15 @@ router.get('/', (req, res) => {
  *
  */
 
-router.post('/',(req,res)=>{
-    console.log(JSON.stringify(req.body));
-    createNewEvent(req.body).then(resp=>{
-        res(resp);
-    });
+router.post('/', (req, res) => {
+    console.log("this" + (JSON.stringify(req.body)));
+    try {
+        createNewEvent(req.body).then(resp => {
+            res(resp);
+        });
+    } catch (e) {
+        console.log(e);
+    }
 });
 
 
@@ -48,14 +52,14 @@ router.post('/',(req,res)=>{
  *
  */
 router.get('/:param', (req, res) => {
-  const parameter = req.params.param;
-  console.log(parameter);
-  TeamEvent.findOne({'title': parameter}).then(data => {
-    console.log(data);
-    res.send(data);
-  }, err => {
-    res.send(err.error.message);
-  });
+    const parameter = req.params.param;
+    console.log(parameter);
+    TeamEvent.findOne({'title': parameter}).then(data => {
+        console.log(data);
+        res.send(data);
+    }, err => {
+        res.send(err.error.message);
+    });
 });
 
 
@@ -68,9 +72,9 @@ router.get('/:param', (req, res) => {
 router.put('/:param', (req, res) => {
     console.log(parameter);
     TeamEvent.findOneAndUpdate({'_id': req.params.param}).then(() => {
-        console.log("original: "+data);
-        TeamEvent.findOne({_id: req.params.param}).then(data=>{
-            console.log("updated: "+data);
+        console.log("original: " + data);
+        TeamEvent.findOne({_id: req.params.param}).then(data => {
+            console.log("updated: " + data);
             res.send(data);
         });
     }, err => {
@@ -86,9 +90,7 @@ router.put('/:param', (req, res) => {
  *  @apiDescription This is used to remove one TeamEvent from the database
  */
 router.get('/:param', (req, res) => {
-    const parameter = req.params.param;
-    console.log(parameter);
-    TeamEvent.findOneAndRemove({'title': parameter}).then(data => {
+    TeamEvent.findOne({'_id': req.params.param}).then(data => {
         remove(data);
         console.log(data);
         res.send(data);
@@ -97,8 +99,8 @@ router.get('/:param', (req, res) => {
     });
 });
 
-const createNewEvent=(tEvent)=>{
-  return TeamEvent.create(tEvent);
+const createNewEvent = tEvent => {
+    return TeamEvent.create(tEvent);
 };
 
 module.exports = router;

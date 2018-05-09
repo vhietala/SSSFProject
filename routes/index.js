@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const User = require('../models/user');
+//const User = require('../models/user');
 
 /*
 *GET home page.
@@ -16,26 +16,7 @@ router.get('/', (req, res, next) => {
 router.get('/register', (req, res) => {
   res.render('register', {});
 });
-/*
-*
- */
-router.post('/register', (req, res, next) => {
-  User.register(new User({username: req.body.username}), req.body.password,
-      (err, user) => {
-        if (err) {
-          return res.render('register', {error: err.message});
-        }
 
-        passport.authenticate('local')(req, res, () => {
-          req.session.save((err) => {
-            if (err) {
-              return next(err);
-            }
-            res.redirect('/');
-          });
-        });
-      });
-});
 /*
 *
  */

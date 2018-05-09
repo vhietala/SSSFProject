@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
+const passport = require('passport');
 
 /**
  * @api {get} /users Request current user info
@@ -46,6 +47,31 @@ router.put('/id', (req, res, next) => {
  */
 router.put('/', (req, res, next) => {
     res.send('user put');
+});
+
+/**
+ * @api {post} /users Create a user
+ * @apiName PostUsers
+ * @apiGroup Users
+ * @apiDescription registering a new user
+ *
+ */
+router.post('/', (req, res, next) => {
+    User.register(new User({username: req.body.username}), req.body.password,
+        (err, user) => {
+            if (err) {
+                return res.render('register', {error: err.message});
+            }
+
+            passport.authenticate('local')(req, res, () => {
+                req.session.save((err) => {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.redirect('/');
+                });
+            });
+        });
 });
 
 module.exports = router;

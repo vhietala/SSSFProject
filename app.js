@@ -34,9 +34,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(require('express-session')({
-  secret: '$process.env.SECRET',
-  resave: false,
-  saveUninitialized: false,
+    secret: '$process.env.SECRET',
+    resave: false,
+    saveUninitialized: false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -51,33 +51,38 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-mongoose.connect(configDB.url); // connect to our database
+try {
+    mongoose.connect(configDB.url).then(() => {
+        app.listen(port);
+    }); // connect to our database
+} catch (err) {
 
-app.listen(port);
+}
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 // good candidate for .env
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err,
+if (app.get(process.env.ENV) === 'development') {
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err,
+        });
     });
-  });
 }
 
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {},
-  });
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {},
+    });
 });
 
 module.exports = app;

@@ -47,7 +47,7 @@ router.post('/',(req, res) => {
     console.log('this' + (JSON.stringify(req.body)));
     const data = {};
     data.title = req.body.title;
-    data.category = req.body.title;
+    data.category = req.body.category;
     data.location = req.body.location;
     data.info = req.body.info;
     let newDate = new Sugar.Date.create(req.body.date);

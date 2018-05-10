@@ -7,7 +7,7 @@ const commentSchema = new Schema({
         comment: String
     }
 );
-
+//TODO: add proper location stuff
 // const GeoSchema = new Schema({
 //     type: {
 //         type: String,

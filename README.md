@@ -5,8 +5,8 @@
 
 
 ## Main features
-**Games** 
-**Practises** 
+**Games** One time events with time and place
+**Practises** Possibly repeatable events
 
 ## Installing
 First you need to have a Node server, provided by different cloud platforms, or you can install it on your own computer with instructions from https://nodejs.org

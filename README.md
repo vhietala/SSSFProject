@@ -6,6 +6,7 @@
 
 ## Main features
 **Games** One time events with time and place
+
 **Practises** Possibly repeatable events
 
 ## Installing

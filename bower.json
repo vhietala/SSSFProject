@@ -1,0 +1,22 @@
+{
+  "name": "SSSFProject",
+  "homepage": "https://github.com/vhietala/SSSFProject",
+  "authors": [
+    "Ville Hietala <vhietala@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1"
+  }
+}

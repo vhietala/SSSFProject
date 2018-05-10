@@ -1,8 +1,7 @@
 # SSSFProject
-**Team page** is a nodejs app that lets the user create a team page for a hobby where they can have events such as Games and Practises and they can see who is taking part
 
 ## Introduction
-
+**Team page** is a nodejs app that lets the user create a team page for a hobby where they can have events such as Games and Practises and they can see who is taking part
 
 ## Main features
 **Games** One time events with time and place

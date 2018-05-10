@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
  *
  */
 router.get('/add', (req, res) => {
-    res.render('addEvent',{user: req.user});
+    res.render('addEvent', {user: req.user});
 });
 
 
@@ -43,7 +43,7 @@ router.get('/add', (req, res) => {
  *
  */
 
-router.post('/',(req, res) => {
+router.post('/', (req, res) => {
     console.log('this' + (JSON.stringify(req.body)));
     const data = {};
     data.title = req.body.title;
@@ -58,7 +58,7 @@ router.post('/',(req, res) => {
     try {
         createNewEvent(data).then(resp => {
             res.redirect('/');
-        }).then(()=>{
+        }).then(() => {
         });
     } catch (e) {
         console.log(e);
@@ -71,16 +71,32 @@ router.post('/',(req, res) => {
  *  @api {get} /events/:param Return events based on search paramater
  *  @apiName GetEvent
  *  @apiGroup Event
- *  @apiDescription This one can be used to search for events based on the title
+ *  @apiDescription This one can be used to search for events based on the id
  *  it returns one item as a JSON.
  *
  */
 router.get('/:param', (req, res) => {
     const parameter = req.params.param;
     console.log(parameter);
-    TeamEvent.findOne({'title': parameter}).then(data => {
+    TeamEvent.findOne({'id': parameter}).then(data => {
         console.log(data);
         res.send(data);
+    });
+});
+
+/**
+ *  @api {get} /events/join/:param/:userId Return events based on search paramater
+ *  @apiName GetEvent
+ *  @apiGroup Event
+ *  @apiDescription This one can be used to search for events based on the id
+ *  it returns one item as a JSON.
+ */
+router.get('/join/:param/:userId', (req, res) => {
+    const eventId = req.params.param;
+    const userId = req.params.userId;
+    TeamEvent.findOne({'_id': eventId}).then(evt => {
+        evt.participants.push(userId);
+        res.send(evt);
     }, err => {
         res.send(err.error.message);
     });
@@ -88,21 +104,20 @@ router.get('/:param', (req, res) => {
 
 
 /**
- *  @api {put} /events/:param Update events based on parameter
- *  @apiName PutEvent
+ *  @api {post} /events/:param Update events based on parameter
+ *  @apiName PostEventUpdate
  *  @apiGroup Event
+ *  @apiParam {Number} id Events unique ID
  *  @apiDescription This is used to update the event defined in parameter
  */
-router.put('/:param', (req, res) => {
+router.post('/update/:param', (req, res) => {
     console.log(parameter);
-    TeamEvent.findOneAndUpdate({'_id': req.params.param}).then(() => {
-        console.log("original: " + data);
-        TeamEvent.findOne({_id: req.params.param}).then(data => {
-            console.log("updated: " + data);
-            res.send(data);
-        });
-    }, err => {
-        res.send(err.error.message);
+    TeamEvent.findOneAndUpdate({'_id': req.params.param}, req.body, {new: true}, (err, data) => {
+        if (err) {
+            console.log('something went wrong with updating');
+            res.send(err);
+        }
+        res.redirect('/');
     });
 });
 
@@ -111,9 +126,10 @@ router.put('/:param', (req, res) => {
  *  @api {delete} /events/:param Return events based on search paramater
  *  @apiName DeleteEvent
  *  @apiGroup Event
+ *  @apiParam {Number} id Events unique ID
  *  @apiDescription This is used to remove one TeamEvent from the database
  */
-router.get('/:param', (req, res) => {
+router.delete('/:param', (req, res) => {
     TeamEvent.findOne({'_id': req.params.param}).then(data => {
         remove(data);
         console.log(data);

@@ -1,13 +1,38 @@
 extends layout
 
+
 block content
+
+    mixin event(evnt,user)
+
+        h1= evnt.category
+        p= evnt.date
+        br
+        h2= evnt.title
+        p= evnt.location
+
     if (!user)
         a(href="/login") Login
         br
         a(href="/register") Register
-    if (user)
+    if(user)
         p You are currently logged in as #{user.username}
         a(href="/logout") Logout
-        include includes/eventList
+        eventsContainer
+            ul.list-group
+                each val in events
+                    li.list-group-item
+                        .event
+                            +event(val,user)
+                        button( onclick="openModal('" + val.id + "','" + user.id + "')" ) Open
+    .modal
+        span.close
+        h1.modal-header Modal header
+        h2.modal-title Modal header
+        p.modal-info Modal info
+        button.modal-joinButton Join
+        button.close-button Close
 
     script(src='js/main.js')
+
+

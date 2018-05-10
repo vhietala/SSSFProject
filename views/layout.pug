@@ -1,11 +1,10 @@
-doctype html
+doctype html5
 html
     head
         title= title
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
-        script(src='/js/main.js')
     body
         nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
             a.navbar-brand(href='/') #{title}
@@ -22,7 +21,7 @@ html
                         .dropdown-menu(aria-labelledby='dropdown01')
                             a.dropdown-item(href='/users/edit') User info
                             a.dropdown-item(href='#') Something else here
-                    li.nav-item.dropdown#adminDropdown(style="visibility: hidden")
+                    li.nav-item.dropdown#adminDropdown(style="visibility: visible")
                         a#dropdown02.nav-link.dropdown-toggle(href='/', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', type='hidden') Admin Menu
                         .dropdown-menu(aria-labelledby='dropdown02')
                             a.dropdown-item(href='/events/add') Add event
@@ -42,3 +41,4 @@ html
 
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+

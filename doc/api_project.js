@@ -1,13 +1,13 @@
 define({
-  "name": "project",
-  "version": "1.0.0",
-  "description": "SSSF project",
+  "name": "Team Page",
+  "version": "0.0.0",
+  "description": "",
   "sampleUrl": false,
   "defaultVersion": "0.0.0",
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2018-04-08T19:36:35.591Z",
+    "time": "2018-05-10T22:06:48.252Z",
     "url": "http://apidocjs.com",
     "version": "0.17.6"
   }

@@ -16,12 +16,15 @@
     "http": "0.0.0",
     "http-errors": "~1.6.2",
     "https": "^1.0.0",
+    "moment": "^2.22.1",
     "mongoose": "^5.0.15",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.0",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "sugar": "^2.0.4",
+    "sugar-date": "^2.0.4"
   },
   "devDependencies": {
     "supervisor": "^0.12.0"

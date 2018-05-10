@@ -1,2 +1,18 @@
-.listContainer
-    ul.eventList
+mixin event(evnt)
+
+    h1= evnt.category
+    p= evnt.date
+    br
+    h2= evnt.title
+    p= evnt.location
+    button Details
+
+
+.eventsContainer
+    ul.list-group
+        each val in events
+            li.list-group-item
+                #event
+                    +event(val)
+
+

@@ -25,8 +25,6 @@ const eventSchema = new Schema({
         type: Date,
         //required: true,
     },
-    hour: Number,
-    minutes: Number,
     location: String,
     category: {
         type: String,

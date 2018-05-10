@@ -4,13 +4,35 @@ html
         title= title
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
     body
-        if (error && error.length > 0)
+        nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
+            a.navbar-brand(href='/') #{title}
+            button.navbar-toggle.collapsed(type='button' data-toggle='collapse', data-target='#navbarsExampleDefault', aria-controls='#navbarsExampleDefault', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarsExampleDefault.collapse.navbar-collapse
+                ul.navbar-nav.mr-auto
+                    li.nav-item.active
+                        a.nav-link(href='/')
+                            | Home
+                            span.sr-only (current)
+                    li.nav-item.dropdown
+                        a#dropdown01.nav-link.dropdown-toggle(href='/', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Menu
+                        .dropdown-menu(aria-labelledby='dropdown01')
+                            a.dropdown-item(href='/events/add') Add event
+                            a.dropdown-item(href='/users/edit') User info
+                            a.dropdown-item(href='#') Something else here
+        br
+        .container
+            if (error && error.length > 0)
+                br
+                h4.error-msg= error
+                br
+            block content
             br
-            h4.error-msg= error
-            br
-        block content
+            hr
+            footer
+                p Copyright &copy; 2018
 
-    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous")
-    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous")
+    script(src='/bower_components/jquery/dist/jquery.js')
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.js')

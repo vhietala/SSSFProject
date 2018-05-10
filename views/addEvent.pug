@@ -5,9 +5,10 @@ block content
         a(href="/login") Login
         br
         a(href="/register") Register
-    if (user)
+    if (user.type != 'admin')
+        p No rights to add events
+        a(href="/") Home
+    if (user.type == 'admin')
         p You are currently logged in as #{user.username}
         a(href="/logout") Logout
-        include includes/eventList
-
-    script(src='js/main.js')
+        include includes/eventCreate

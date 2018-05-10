@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const TeamEvent = require('../models/teamEvent');
+const Sugar = require('sugar');
 
 /**
  * @api {get} /events Request all events from database
@@ -21,6 +22,17 @@ router.get('/', (req, res) => {
     });
 });
 
+/**
+ * @api {get} /events/add Request all events from database
+ * @apiName GetEventsAdd
+ * @apiGroup Event
+ * @apiDescription Request returns a page for adding new events
+ *
+ */
+router.get('/add', (req, res) => {
+    res.render('addEvent',{user: req.user});
+});
+
 
 /**
  *  @api {post} /events creates a new TeamEvent
@@ -31,11 +43,22 @@ router.get('/', (req, res) => {
  *
  */
 
-router.post('/', (req, res) => {
+router.post('/',(req, res) => {
     console.log('this' + (JSON.stringify(req.body)));
+    const data = {};
+    data.title = req.body.title;
+    data.category = req.body.title;
+    data.location = req.body.location;
+    data.info = req.body.info;
+    let newDate = new Sugar.Date.create(req.body.date);
+    Sugar.Date.addHours(newDate, req.body.hour);
+    Sugar.Date.addMinutes(newDate, req.body.minutes);
+    data.date = newDate;
+    console.log(newDate);
     try {
-        createNewEvent(req.body).then(resp => {
-            res.send(resp);
+        createNewEvent(data).then(resp => {
+            res.redirect('/');
+        }).then(()=>{
         });
     } catch (e) {
         console.log(e);
@@ -101,7 +124,7 @@ router.get('/:param', (req, res) => {
 });
 
 const createNewEvent = tEvent => {
-    console.log('here: '+ JSON.stringify(tEvent));
+    console.log('here: ' + JSON.stringify(tEvent));
     return TeamEvent.create(tEvent);
 };
 

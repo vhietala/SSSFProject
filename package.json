@@ -23,7 +23,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.0",
     "pug": "2.0.0-beta11",
-    "sugar": "^2.0.4",
+    "sugar": "^2.0.4"
   },
   "devDependencies": {
     "supervisor": "^0.12.0"
